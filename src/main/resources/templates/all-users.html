@@ -5,33 +5,35 @@
     <title>Админка</title>
 </head>
 <body>
-    <table>
-        <thead>
-            <th>Id</th>
-            <th>Имя</th>
-            <th>Операции</th>
-        </thead>
-        <tbody>
-        <tr th:each="user : ${allUsers}">
-            <td th:text="${user.getId()}">Id</td>
-            <td th:text="${user.getUsername()}">Name</td>
-            <td>
-                <button
-                        th:href="@{updateInfo(userId=${user.getId()})}"
-                        onclick="window.location.href=(this.getAttribute('href'))">Изменить
-                </button>
+<table>
+    <thead>
+    <th>Id</th>
+    <th>Имя</th>
+    <th>Операции</th>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${allUsers}">
+        <td th:text="${user.getId()}">Id</td>
+        <td th:text="${user.getUsername()}">Name</td>
+        <td>
+            <button
+                    th:href="@{updateInfo(userId=${user.getId()})}"
+                    onclick="window.location.href=(this.getAttribute('href'))">Изменить
+            </button>
 
-                <button
-                        th:href="@{deleteUser(userId=${user.getId()})}"
-                        onclick="window.location.href=(this.getAttribute('href'))">Удалить
-                </button>
+            <button
+                    th:href="@{deleteUser(userId=${user.getId()})}"
+                    onclick="window.location.href=(this.getAttribute('href'))">Удалить
+            </button>
 
-            </td>
+        </td>
 
-        </tr>
-        </tbody>
-    </table>
-        <a href="addUser">Добавить пользователя</a>
-        <a href="/logout">Выйти</a>
+    </tr>
+    </tbody>
+</table>
+<br>
+<a href="addUser">Добавить пользователя</a>
+<br>
+<a href="/logout">Выйти</a>
 </body>
 </html>

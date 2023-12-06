@@ -85,6 +85,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Transactional
     public void addRoleToUser(String username, String role) {
         Role roleAddUser = new Role(role);
+        User user = findByUsername(username);
+        user.getRoles().clear();
         findByUsername(username).addRole(getAllRoles().stream()
                 .filter(role1 -> role1.equals(roleAddUser))
                 .findFirst().get());

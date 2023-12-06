@@ -58,6 +58,7 @@ public class UserController {
     @RequestMapping("/updateInfo")
     public String updateUser(@RequestParam("userId") Long id, Model model) {
         model.addAttribute("user", userService.getUser(id));
+        model.addAttribute("allRoles", userService.getAllRoles());
         return "add-user";
     }
 
