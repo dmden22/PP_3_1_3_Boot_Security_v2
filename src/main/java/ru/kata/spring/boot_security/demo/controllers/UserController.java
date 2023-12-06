@@ -41,15 +41,17 @@ public class UserController {
     @RequestMapping("/addUser")
     public String addNewUser(Model model) {
         model.addAttribute("user", new User());
+        model.addAttribute("allRoles", userService.getAllRoles());
         return "add-user";
     }
 
 
     @PostMapping(value = "/saveUser")
-    public String saveUser(@ModelAttribute("user") User user) {
+    public String saveUser(@ModelAttribute("user") User user, @RequestParam("role") String role) {
         String encodedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
         user.setPassword(encodedPassword);
         userService.saveUser(user);
+        userService.addRoleToUser(user.getUsername(), role);
         return "redirect:/admin";
     }
 

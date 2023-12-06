@@ -23,6 +23,10 @@
         <label for="password">Пароль</label>
     </div>
 
+    <select id="role" name="role">
+        <option th:each="role : ${allRoles}" th:value="${role.getName()}" th:text="${role.getName()}"></option>
+    </select>
+
     <br>
     <button type="submit">Сохранить!</button>
 </form>
