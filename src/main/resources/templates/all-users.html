@@ -34,6 +34,8 @@
 <br>
 <a href="addUser">Добавить пользователя</a>
 <br>
-<a href="/logout">Выйти</a>
+<form th:action="@{/logout}" method="POST">
+    <input type="submit" value="Logout"/>
+</form>
 </body>
 </html>

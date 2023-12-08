@@ -31,7 +31,9 @@
     <button type="submit">Сохранить!</button>
 </form>
 
-<a href="/logout">Выйти</a>
+<form th:action="@{/logout}" method="POST">
+    <input type="submit" value="Logout"/>
+</form>
 
 </body>
 </html>
