@@ -4,6 +4,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
@@ -25,12 +26,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public User getUserByName(String name) {
-        return userRepository.findByUsername(name);
     }
 
     @Override
@@ -89,6 +84,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         user.getRoles().clear();
 
         optionalRole.ifPresent(user::addRole);
+    }
+
+    @Transactional
+    public void updateUser(User userUpdate) {
+        User user = userRepository.findByUsername(userUpdate.getUsername());
+        if (userUpdate.getPassword() != null && !userUpdate.getPassword().isEmpty()) {
+            user.setPassword(new BCryptPasswordEncoder().encode(userUpdate.getPassword()));
+        }
+        user.setRoles(userUpdate.getRoles());
     }
 
 

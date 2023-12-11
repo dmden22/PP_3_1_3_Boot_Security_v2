@@ -20,9 +20,9 @@ public interface UserService {
 
     User findByUsername(String username);
 
-    User getUserByName(String name);
-
     List<Role> getAllRoles();
+
+    void updateUser(User userUpdate);
 
     void addRoleToUser(String username, String role);
 }
