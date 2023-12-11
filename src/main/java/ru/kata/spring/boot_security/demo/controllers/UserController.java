@@ -45,6 +45,12 @@ public class UserController {
         return "add-user";
     }
 
+    @RequestMapping("/edit-user")
+    public String editUser(Model model) {
+        model.addAttribute("user", new User());
+        model.addAttribute("allRoles", userService.getAllRoles());
+        return "edit-user";
+    }
 
     @PostMapping(value = "/saveUser")
     public String saveUser(@ModelAttribute("user") User user, @RequestParam("role") String role) {
