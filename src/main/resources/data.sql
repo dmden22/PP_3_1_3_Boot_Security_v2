@@ -17,6 +17,8 @@ insert into roles(name)
 values ('ROLE_USER');
 insert into roles(name)
 values ('ROLE_ADMIN');
+insert into roles(name)
+values ('ROLE_SALES');
 
 create table if not exists users_roles
 (
@@ -39,3 +41,7 @@ insert into users_roles (user_id, role_id)
 VALUES (1, 1);
 insert into users_roles (user_id, role_id)
 VALUES (2, 2);
+insert into users_roles (user_id, role_id)
+VALUES (2, 1);
+insert into users_roles (user_id, role_id)
+VALUES (2, 3);

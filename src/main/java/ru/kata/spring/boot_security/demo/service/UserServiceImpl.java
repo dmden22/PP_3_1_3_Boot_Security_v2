@@ -1,7 +1,5 @@
 package ru.kata.spring.boot_security.demo.service;
 
-
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,10 +11,8 @@ import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -85,11 +81,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Transactional
     public void addRoleToUser(String username, String role) {
         Role roleAddUser = new Role(role);
+        Optional<Role> optionalRole = getAllRoles().stream()
+                .filter(role1 -> role1.equals(roleAddUser))
+                .findFirst();
+
         User user = findByUsername(username);
         user.getRoles().clear();
-        findByUsername(username).addRole(getAllRoles().stream()
-                .filter(role1 -> role1.equals(roleAddUser))
-                .findFirst().get());
+
+        optionalRole.ifPresent(user::addRole);
     }
 
 

@@ -1,14 +1,10 @@
 package ru.kata.spring.boot_security.demo.model;
 
-
-import org.hibernate.collection.internal.PersistentSet;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 
@@ -40,6 +36,11 @@ public class User implements UserDetails {
         this.username = username;
         this.roles = roles;
         this.password = password;
+    }
+
+    public User(String username, Collection<Role> roles) {
+        this.username = username;
+        this.roles = roles;
     }
 
     public User() {
