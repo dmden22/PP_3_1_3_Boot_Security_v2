@@ -38,7 +38,7 @@ public class UserController {
         return "all-users";
     }
 
-    @RequestMapping("/addUser")
+    @RequestMapping("/admin/addUser")
     public String addNewUser(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("allRoles", userService.getAllRoles());
@@ -60,7 +60,7 @@ public class UserController {
         return "redirect:/admin";
     }
 
-    @RequestMapping("/updateInfo")
+    @RequestMapping("/admin/updateInfo")
     public String updateUser(@RequestParam("userId") Long id, Model model) {
         model.addAttribute("user", userService.getUser(id));
         model.addAttribute("allRoles", userService.getAllRoles());
@@ -68,7 +68,7 @@ public class UserController {
         return "edit-user";
     }
 
-    @RequestMapping("deleteUser")
+    @RequestMapping("/admin/deleteUser")
     public String deleteUser(@RequestParam("userId") Long id) {
         userService.deleteUser(id);
         return "redirect:/admin";

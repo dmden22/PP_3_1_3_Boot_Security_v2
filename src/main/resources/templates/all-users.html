@@ -17,12 +17,12 @@
         <td th:text="${user.getUsername()}">Name</td>
         <td>
             <button
-                    th:href="@{updateInfo(userId=${user.getId()})}"
+                    th:href="@{/admin/updateInfo(userId=${user.getId()})}"
                     onclick="window.location.href=(this.getAttribute('href'))">Изменить
             </button>
 
             <button
-                    th:href="@{deleteUser(userId=${user.getId()})}"
+                    th:href="@{/admin/deleteUser(userId=${user.getId()})}"
                     onclick="window.location.href=(this.getAttribute('href'))">Удалить
             </button>
 
@@ -32,7 +32,7 @@
     </tbody>
 </table>
 <br>
-<a href="addUser">Добавить пользователя</a>
+<a href="admin/addUser">Добавить пользователя</a>
 <br>
 <form th:action="@{/logout}" method="POST">
     <input type="submit" value="Logout"/>
