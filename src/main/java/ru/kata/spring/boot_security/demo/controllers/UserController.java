@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -47,17 +48,29 @@ public class UserController {
 
     @PostMapping(value = "/saveUser")
     public String saveUser(@ModelAttribute("user") User user, @RequestParam("role") String role) {
-        String encodedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
-        user.setPassword(encodedPassword);
-        userService.saveUser(user);
-        userService.addRoleToUser(user.getUsername(), role);
-        return "redirect:/admin";
+        List<User> listUser = userService.getAllUsers();
+        if (listUser.stream()
+                .noneMatch(u -> u.getUsername().equals(user.getUsername())
+                        && !u.getId().equals(user.getId()))) {
+            String encodedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
+            user.setPassword(encodedPassword);
+            userService.saveUser(user);
+            userService.addRoleToUser(user.getUsername(), role);
+            return "redirect:/admin";
+        }
+        return "error-username";
     }
 
     @PostMapping(value = "/saveAfterEditUser")
     public String saveAfterEditUser(@ModelAttribute("user") User user) {
-        userService.updateUser(user);
-        return "redirect:/admin";
+        List<User> listUser = userService.getAllUsers();
+        if (listUser.stream()
+                .noneMatch(u -> u.getUsername().equals(user.getUsername())
+                        && !u.getId().equals(user.getId()))) {
+            userService.updateUser(user);
+            return "redirect:/admin";
+        }
+        return "error-username";
     }
 
     @RequestMapping("/admin/updateInfo")
