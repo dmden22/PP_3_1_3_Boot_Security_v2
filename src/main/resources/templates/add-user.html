@@ -14,12 +14,12 @@
     </div>
 
     <div>
-        <input type="text" th:field="*{username}" id="name" placeholder="Имя Пользоватея">
+        <input type="text" th:field="*{username}" id="name" placeholder="Имя Пользоватея" minlength="2" maxlength="100">
         <label for="name">Имя Пользователя</label>
     </div>
 
     <div>
-        <input type="text" th:field="*{password}" id="password" placeholder="Пароль">
+        <input type="text" th:field="*{password}" id="password" placeholder="Пароль" minlength="2" maxlength="100">
         <label for="password">Пароль</label>
     </div>
 
